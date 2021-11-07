@@ -29,12 +29,12 @@ def loop():
         if np.mean(img) > 90:
             if not last_open:
                 print('Open')
-                telegram_bot_sendtext('Olkkari is now *open*')
+                telegram_bot_sendtext('🟢🟢🟢 now *open* 🟢🟢🟢')
                 last_open = True
         else:
             if last_open:
                 print('Closed')
-                telegram_bot_sendtext('Olkkari is now *closed*')
+                telegram_bot_sendtext('❌❌ now *closed* ❌❌')
                 last_open = False
         time.sleep(5)
 
