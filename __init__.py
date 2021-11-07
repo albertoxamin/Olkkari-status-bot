@@ -23,20 +23,28 @@ def get_image():
 
 def loop():
     last_open = False
+    diff_count = 0
     while True:
         img = get_image()
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         if np.mean(img) > 90:
             if not last_open:
-                print('Open')
-                telegram_bot_sendtext('🟢🟢🟢 now *open* 🟢🟢🟢')
-                last_open = True
+                diff_count += 1
+                if diff_count > 5:
+                    print('Open')
+                    telegram_bot_sendtext('🟢🟢🟢 now *open* 🟢🟢🟢')
+                    last_open = True
+                    diff_count = 0
         else:
             if last_open:
-                print('Closed')
-                telegram_bot_sendtext('❌❌ now *closed* ❌❌')
-                last_open = False
+                diff_count += 1
+                if diff_count > 5:
+                    print('Closed')
+                    telegram_bot_sendtext('❌❌ now *closed* ❌❌')
+                    last_open = False
+                    diff_count = 0
         time.sleep(5)
 
 if __name__ == '__main__':
     loop()
+
