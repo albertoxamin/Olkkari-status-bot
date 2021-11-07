@@ -22,16 +22,16 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-      -
-        name: Docker Buildx (build amd64 arm64)
-        run: |
-          docker buildx build \
-            --cache-from "type=local,src=/tmp/.buildx-cache" \
-            --cache-to "type=local,dest=/tmp/.buildx-cache" \
-            --platform linux/amd64,linux/arm64 \
-            --output "type=image,push=false" \
-            --tag albertoxamin/olkkaristatus:latest \
-            --file ./Dockerfile ./
+      # -
+      #   name: Docker Buildx (build amd64 arm64)
+      #   run: |
+      #     docker buildx build \
+      #       --cache-from "type=local,src=/tmp/.buildx-cache" \
+      #       --cache-to "type=local,dest=/tmp/.buildx-cache" \
+      #       --platform linux/amd64,linux/arm64 \
+      #       --output "type=image,push=false" \
+      #       --tag albertoxamin/olkkaristatus:latest \
+      #       --file ./Dockerfile ./
       -
         name: Docker Buildx (build armv-7)
         run: |
