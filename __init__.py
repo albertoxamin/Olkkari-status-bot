@@ -17,8 +17,12 @@ def telegram_bot_sendtext(bot_message):
    return response.json()
 
 def get_image():
-    req = urllib.request.urlopen(f'https://athene.fi/olocam/latest.jpg?{int(round(time.time() * 1000))}')
-    arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
+    arr = np.zeros((1,1))
+    try:
+        req = urllib.request.urlopen(f'https://athene.fi/olocam/latest.jpg?{int(round(time.time() * 1000))}')
+        arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
+    except:
+        arr = np.zeros((1,1))
     return cv2.imdecode(arr, -1)
 
 def loop():
