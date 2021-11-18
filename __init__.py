@@ -21,16 +21,15 @@ def get_image():
     try:
         req = urllib.request.urlopen(f'https://athene.fi/olocam/latest.jpg?{int(round(time.time() * 1000))}')
         arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
+        return cv2.cvtColor(cv2.imdecode(arr, -1), cv2.COLOR_BGR2GRAY)
     except:
-        arr = np.zeros((1,1))
-    return cv2.imdecode(arr, -1)
+        return np.zeros((1,1))
 
 def loop():
     last_open = False
     diff_count = 0
     while True:
         img = get_image()
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         if np.mean(img) > 90:
             if not last_open:
                 diff_count += 1
@@ -51,4 +50,5 @@ def loop():
 
 if __name__ == '__main__':
     loop()
+
 
